@@ -1,0 +1,120 @@
+// Design tokens — upgraded visual system
+// Violet-indigo primary with premium depth
+
+:root {
+  // ── Primary: violet-indigo gradient palette ──────────────────────────
+  --color-primary: #6366F1;
+  --color-primary-light: #818CF8;
+  --color-primary-dark: #4F46E5;
+  --color-primary-subtle: #EEF2FF;
+  --color-primary-glow: rgba(99, 102, 241, 0.25);
+  --color-primary-glow-strong: rgba(99, 102, 241, 0.55);
+
+  // Gradient shortcuts
+  --gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  --gradient-sidebar: linear-gradient(180deg, #1E1B4B 0%, #0F0E2A 100%);
+  --gradient-hero: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A855F7 100%);
+
+  // ── Status ────────────────────────────────────────────────────────────
+  --color-success: #10B981;
+  --color-success-light: #D1FAE5;
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF3C7;
+  --color-danger: #EF4444;
+  --color-danger-light: #FEE2E2;
+  --color-info: #6366F1;
+  --color-info-light: #EEF2FF;
+
+  // ── Surface ───────────────────────────────────────────────────────────
+  --color-bg: #F5F7FF;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FAFAFF;
+  --color-border: #E2E4F0;
+  --color-border-light: #EDEEF8;
+
+  // ── Text ─────────────────────────────────────────────────────────────
+  --color-text: #1E1B4B;
+  --color-text-regular: #4B5280;
+  --color-text-muted: #9CA3C4;
+  --color-text-inverse: #FFFFFF;
+
+  // ── Sidebar ───────────────────────────────────────────────────────────
+  --sidebar-bg: #13112B;
+  --sidebar-bg-secondary: #1A1740;
+  --sidebar-hover: rgba(99, 102, 241, 0.12);
+  --sidebar-active-bg: rgba(99, 102, 241, 0.18);
+  --sidebar-active-indicator: #6366F1;
+  --sidebar-text: #A8AACC;
+  --sidebar-text-active: #FFFFFF;
+  --sidebar-text-muted: #6B6E94;
+  --sidebar-width: 220px;
+  --sidebar-collapsed-width: 64px;
+
+  // ── Header ────────────────────────────────────────────────────────────
+  --header-height: 58px;
+  --header-bg: rgba(255, 255, 255, 0.88);
+  --header-border: rgba(226, 228, 240, 0.8);
+
+  // ── TagsView ──────────────────────────────────────────────────────────
+  --tags-height: 42px;
+  --tags-bg: rgba(255, 255, 255, 0.9);
+  --tags-item-bg: #F0F1FA;
+  --tags-item-active-bg: #6366F1;
+  --tags-item-active-color: #FFFFFF;
+
+  // ── Shadows ───────────────────────────────────────────────────────────
+  --shadow-sm: 0 1px 3px rgba(30, 27, 75, 0.06), 0 1px 2px rgba(30, 27, 75, 0.04);
+  --shadow-md: 0 4px 12px rgba(30, 27, 75, 0.08), 0 2px 4px rgba(30, 27, 75, 0.04);
+  --shadow-lg: 0 12px 28px rgba(30, 27, 75, 0.1), 0 4px 8px rgba(30, 27, 75, 0.06);
+  --shadow-primary: 0 4px 14px rgba(99, 102, 241, 0.35);
+  --shadow-card-hover: 0 8px 24px rgba(30, 27, 75, 0.12);
+
+  // ── Border radius ─────────────────────────────────────────────────────
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  // ── Transition ────────────────────────────────────────────────────────
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 240ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 360ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  // ── Element Plus overrides ────────────────────────────────────────────
+  --el-color-primary: var(--color-primary);
+  --el-color-primary-light-3: #818CF8;
+  --el-color-primary-light-5: #A5B4FC;
+  --el-color-primary-light-7: #C7D2FE;
+  --el-color-primary-light-8: #D5DBFF;
+  --el-color-primary-light-9: var(--color-primary-subtle);
+  --el-color-primary-dark-2: var(--color-primary-dark);
+  --el-color-success: var(--color-success);
+  --el-color-warning: var(--color-warning);
+  --el-color-danger: var(--color-danger);
+  --el-color-info: var(--color-info);
+  --el-bg-color: var(--color-bg);
+  --el-bg-color-overlay: var(--color-surface);
+  --el-border-color: var(--color-border);
+  --el-border-color-light: var(--color-border-light);
+  --el-text-color-primary: var(--color-text);
+  --el-text-color-regular: var(--color-text-regular);
+  --el-text-color-secondary: var(--color-text-muted);
+  --el-border-radius-base: var(--radius-md);
+  --el-font-size-base: 14px;
+  --el-box-shadow: var(--shadow-md);
+}
+
+// SCSS authoring aliases
+$color-primary: var(--color-primary);
+$color-bg: var(--color-bg);
+$color-surface: var(--color-surface);
+$color-border: var(--color-border);
+$color-text: var(--color-text);
+$color-text-regular: var(--color-text-regular);
+$color-text-muted: var(--color-text-muted);
+$sidebar-bg: var(--sidebar-bg);
+$header-height: var(--header-height);

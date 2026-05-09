@@ -1,0 +1,781 @@
+// Element Plus overrides — premium visual layer
+
+// ── Menu: remove border ───────────────────────────────────────────────
+.el-menu {
+  border-right: none !important;
+}
+
+// Sub-menu popup (teleported to body) dark mode background
+.el-menu--popup {
+  background-color: var(--color-surface-elevated) !important;
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-lg) !important;
+
+  .el-menu-item {
+    color: var(--color-text-regular) !important;
+    border-radius: var(--radius-sm) !important;
+    margin: 2px 6px !important;
+
+    &:hover {
+      background-color: var(--color-primary-subtle) !important;
+      color: var(--color-primary) !important;
+    }
+
+    &.is-active {
+      color: var(--color-primary) !important;
+      background-color: var(--color-primary-subtle) !important;
+      font-weight: 500;
+    }
+  }
+}
+
+// ── Sidebar menu — always dark themed ────────────────────────────────
+// Force transparent background on every layer — EP 2.6 falls back to
+// --el-bg-color (white in light mode) if we only set CSS vars.
+.sidebar-menu,
+.sidebar-menu .el-menu,
+.sidebar-menu .el-menu--inline {
+  background-color: transparent !important;
+  border-right: none !important;
+}
+
+.sidebar-menu .el-menu-item,
+.sidebar-menu .el-sub-menu__title {
+  height: 44px;
+  line-height: 44px;
+  border-radius: var(--radius-md);
+  margin: 1px 10px;
+  padding-left: 14px !important;
+  color: var(--sidebar-text) !important;
+  background-color: transparent !important;
+  font-size: 13.5px;
+  position: relative;
+  transition: all var(--transition-fast) !important;
+
+  &:hover {
+    background-color: var(--sidebar-hover) !important;
+    color: var(--sidebar-text-active) !important;
+  }
+
+  &.is-active {
+    color: var(--sidebar-text-active) !important;
+    background-color: var(--sidebar-active-bg) !important;
+    font-weight: 500;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 20px;
+      background: var(--gradient-primary);
+      border-radius: 0 3px 3px 0;
+    }
+  }
+}
+
+.sidebar-menu .el-sub-menu {
+  .el-menu-item {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 44px !important;
+    font-size: 13px;
+    background-color: transparent !important;
+  }
+
+  .el-sub-menu__title::after {
+    transition: transform var(--transition-normal) !important;
+  }
+}
+
+.sidebar-menu .el-sub-menu.is-opened > .el-sub-menu__title {
+  color: var(--sidebar-text-active) !important;
+}
+
+// ── Header horizontal menu ────────────────────────────────────────────
+.horizontal-menu .el-menu-item,
+.horizontal-menu .el-sub-menu__title {
+  height: var(--header-height);
+  line-height: var(--header-height);
+  border-bottom: none !important;
+  font-size: 14px;
+  transition: all var(--transition-fast) !important;
+
+  &:hover {
+    background-color: var(--color-primary-subtle) !important;
+    color: var(--color-primary) !important;
+  }
+
+  &.is-active {
+    border-bottom: 2px solid var(--color-primary) !important;
+    color: var(--color-primary) !important;
+    background: transparent !important;
+  }
+}
+
+// ── Dialog ────────────────────────────────────────────────────────────
+.el-dialog {
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--color-border-light) !important;
+
+  .el-dialog__header {
+    padding: 20px 24px 16px !important;
+    border-bottom: 1px solid var(--color-border-light);
+
+    .el-dialog__title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+  }
+
+  .el-dialog__body {
+    padding: 20px 24px !important;
+  }
+
+  .el-dialog__footer {
+    padding: 16px 24px 20px !important;
+    border-top: 1px solid var(--color-border-light);
+  }
+}
+
+// ── Card ──────────────────────────────────────────────────────────────
+.el-card {
+  border-radius: var(--radius-lg) !important;
+  border-color: var(--color-border-light) !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: box-shadow var(--transition-normal), transform var(--transition-normal) !important;
+
+  &:hover {
+    box-shadow: var(--shadow-card-hover) !important;
+  }
+}
+
+// ── Drawer ────────────────────────────────────────────────────────────
+.el-drawer {
+  .el-drawer__header {
+    margin-bottom: 0;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--color-border-light);
+
+    .el-drawer__title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
+  .el-drawer__body {
+    padding: 20px;
+  }
+}
+
+// ── Table ─────────────────────────────────────────────────────────────
+.el-table {
+  --el-table-border-color: var(--color-border-light);
+  --el-table-header-bg-color: var(--color-surface-elevated);
+  --el-table-row-hover-bg-color: var(--color-primary-subtle);
+  font-size: 13.5px;
+
+  .el-table__header-wrapper th {
+    font-weight: 600;
+    color: var(--color-text-regular);
+    font-size: 13px;
+  }
+
+  .el-table__row {
+    transition: background var(--transition-fast);
+
+    td {
+      transition: background var(--transition-fast);
+    }
+  }
+
+  // ── Table action buttons: force uniform link-style regardless of markup ──
+  .el-table__cell .el-button--small {
+    padding: 0 6px !important;
+    height: auto !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+
+    &.el-button--primary,
+    &:not([class*="el-button--"]) {
+      color: var(--color-primary) !important;
+      &:hover {
+        color: var(--color-primary-dark) !important;
+        background: var(--color-primary-subtle) !important;
+        border-radius: var(--radius-sm) !important;
+      }
+    }
+
+    &.el-button--danger {
+      color: var(--color-danger) !important;
+      &:hover {
+        background: var(--color-danger-light) !important;
+        border-radius: var(--radius-sm) !important;
+      }
+    }
+
+    &.el-button--warning {
+      color: var(--color-warning) !important;
+      &:hover {
+        background: var(--color-warning-light) !important;
+        border-radius: var(--radius-sm) !important;
+      }
+    }
+
+    &.is-disabled {
+      opacity: 0.4 !important;
+      cursor: not-allowed !important;
+    }
+  }
+}
+
+// ── Pagination ────────────────────────────────────────────────────────
+.el-pagination {
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+// ── Input ─────────────────────────────────────────────────────────────
+.el-input__wrapper {
+  border-radius: var(--radius-md) !important;
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast) !important;
+
+  &:focus-within {
+    box-shadow: 0 0 0 2px var(--color-primary-glow) !important;
+  }
+}
+
+.el-select .el-input__wrapper {
+  border-radius: var(--radius-md) !important;
+}
+
+.el-textarea__inner {
+  border-radius: var(--radius-md) !important;
+}
+
+// ── Button ────────────────────────────────────────────────────────────
+.el-button {
+  border-radius: var(--radius-md) !important;
+  font-weight: 500 !important;
+  transition: all var(--transition-fast) !important;
+  letter-spacing: 0.01em;
+
+  &:not(.is-disabled):not(.is-link):not(.is-text):hover {
+    transform: translateY(-1px);
+  }
+
+  &:not(.is-disabled):not(.is-link):not(.is-text):active {
+    transform: translateY(0);
+  }
+}
+
+.el-button--primary:not(.is-link):not(.is-text) {
+  background: var(--gradient-primary) !important;
+  border-color: transparent !important;
+  box-shadow: var(--shadow-primary) !important;
+
+  &:hover {
+    background: var(--gradient-primary-hover) !important;
+    box-shadow: 0 6px 18px var(--color-primary-glow-strong) !important;
+  }
+
+  &.is-loading,
+  &.is-disabled {
+    background: var(--color-primary-subtle) !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}
+
+// Link and text type primary buttons — text color only, no background
+.el-button--primary.is-link,
+.el-button--primary.is-text {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: var(--color-primary) !important;
+
+  &:hover {
+    color: var(--color-primary-dark) !important;
+    background: var(--color-primary-subtle) !important;
+  }
+
+  &.is-disabled {
+    color: var(--color-text-muted) !important;
+    background: transparent !important;
+  }
+}
+
+// ── Tag ───────────────────────────────────────────────────────────────
+.el-tag {
+  border-radius: var(--radius-full) !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+}
+
+// ── Form item ─────────────────────────────────────────────────────────
+.el-form-item__label {
+  font-weight: 500;
+  color: var(--color-text-regular);
+}
+
+// ── Dropdown ─────────────────────────────────────────────────────────
+.el-dropdown-menu {
+  border-radius: var(--radius-lg) !important;
+  padding: 6px !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--color-border-light) !important;
+
+  .el-dropdown-menu__item {
+    border-radius: var(--radius-md) !important;
+    font-size: 13.5px;
+    padding: 8px 14px !important;
+    transition: all var(--transition-fast) !important;
+
+    &:hover {
+      background-color: var(--color-primary-subtle) !important;
+      color: var(--color-primary) !important;
+    }
+
+    &.is-divided {
+      border-top: 1px solid var(--color-border-light) !important;
+      margin-top: 4px !important;
+      padding-top: 12px !important;
+    }
+  }
+}
+
+// ── Popover ───────────────────────────────────────────────────────────
+.el-popover {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--color-border-light) !important;
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────────
+.el-tooltip__trigger {
+  outline: none;
+}
+
+// ── Switch ────────────────────────────────────────────────────────────
+.el-switch.is-checked .el-switch__core {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// MessageBox 消息弹窗 — 现代卡片式设计
+// ─────────────────────────────────────────────────────────────────────
+//
+// 设计原则（吸取此前两次踩坑经验）：
+//   ① 不改 EP 默认的 padding / display / position / grid / width / overflow
+//      —— 这些一动 EP 内部 grid 布局必塌陷成"全宽 + 元素垂直堆叠"
+//   ② 只动"外观属性"：圆角、阴影、边框、字号、颜色
+//   ③ 通过 customClass='smart-mbx smart-mbx--danger / --warning' 触达三态视觉
+//   ④ status 图标主题色对齐 var(--color-*)，自动适配暗色模式
+//   ⑤ 危险操作的 confirm 按钮在调用处加 confirmButtonClass='el-button--danger'
+//
+// 业务调用模板：
+//   ElMessageBox.confirm(
+//     `<div class="smart-mbx-body">主提示文本 <b class="smart-mbx-target">name</b></div>
+//      <div class="smart-mbx-tip smart-mbx-tip--danger">⚠ 危险说明</div>`,
+//     '弹窗标题',
+//     {
+//       type: 'warning',                        // 决定 status 图标
+//       confirmButtonText: '确认',
+//       cancelButtonText: '取消',
+//       confirmButtonClass: 'el-button--danger', // 删除场景必加
+//       dangerouslyUseHTMLString: true,
+//       draggable: true,
+//       customClass: 'smart-mbx smart-mbx--danger', // 触达三态视觉
+//     },
+//   )
+
+// 遮罩层：稍微深一点的半透明 + 模糊，让弹窗更聚焦
+.el-overlay-message-box {
+  background-color: rgba(15, 15, 20, 0.45) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+// 基础视觉（仅外观，不动布局）
+.el-message-box {
+  border-radius: var(--radius-xl, 16px) !important;
+  box-shadow:
+    0 24px 60px -12px rgba(0, 0, 0, 0.32),
+    0 8px 20px -8px rgba(0, 0, 0, 0.24) !important;
+  border: 1px solid var(--color-border-light) !important;
+  background-color: var(--color-surface) !important;
+
+  // 标题 — 加大、加粗、色彩浓郁
+  .el-message-box__title {
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: var(--color-text) !important;
+    letter-spacing: 0.2px;
+  }
+
+  // 关闭按钮 — hover 变红
+  .el-message-box__headerbtn .el-message-box__close {
+    color: var(--color-text-muted) !important;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      color: var(--color-danger) !important;
+      transform: rotate(90deg);
+    }
+  }
+
+  // 正文文字 — 颜色对齐主题、长字符串自动换行
+  .el-message-box__message {
+    color: var(--color-text-regular) !important;
+    word-break: break-word;
+    font-size: 14px;
+
+    p {
+      color: inherit !important;
+      line-height: 1.65;
+      margin: 0;
+    }
+  }
+
+  // 状态图标颜色（不改 position / size，保持 EP 默认布局）
+  .el-message-box__status {
+    &.el-message-box-icon--primary,
+    &.el-message-box-icon--info {
+      color: var(--color-primary) !important;
+    }
+    &.el-message-box-icon--warning {
+      color: var(--color-warning) !important;
+    }
+    &.el-message-box-icon--error {
+      color: var(--color-danger) !important;
+    }
+    &.el-message-box-icon--success {
+      color: var(--color-success) !important;
+    }
+  }
+
+  // 按钮区 — 只调按钮间距，不加背景色 / border-top（曾导致"全屏一整条横线"）
+  .el-message-box__btns {
+    .el-button {
+      min-width: 80px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+
+      + .el-button {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  // prompt 输入框
+  .el-message-box__input {
+    .el-input__wrapper {
+      border-radius: var(--radius-md) !important;
+    }
+    .el-input__inner {
+      color: var(--color-text) !important;
+    }
+  }
+}
+
+// ─── 三态弹窗变体（通过 customClass 触达） ────────────────────────────
+// 危险弹窗：标题红色 + 关闭按钮红色 hover 已默认
+.smart-mbx.smart-mbx--danger {
+  .el-message-box__title {
+    color: var(--color-danger) !important;
+  }
+  // 给 status 图标加红色光晕背景圆，更醒目
+  .el-message-box__status {
+    filter: drop-shadow(0 0 6px rgba(245, 108, 108, 0.35));
+  }
+}
+
+// 警告弹窗：标题琥珀色
+.smart-mbx.smart-mbx--warning {
+  .el-message-box__title {
+    color: var(--color-warning) !important;
+  }
+  .el-message-box__status {
+    filter: drop-shadow(0 0 6px rgba(230, 162, 60, 0.35));
+  }
+}
+
+// 信息弹窗：保持品牌主色
+.smart-mbx.smart-mbx--info {
+  .el-message-box__title {
+    color: var(--color-primary) !important;
+  }
+}
+
+// ─── MessageBox 富文本辅助样式 ───────────────────────────────────────
+// dangerouslyUseHTMLString 场景下，业务侧可直接使用以下 class 拼装富文本
+.smart-mbx-body {
+  color: var(--color-text);
+  font-size: 14px;
+  line-height: 1.65;
+  word-break: break-word;
+}
+
+// 操作目标高亮胶囊（如文件名、用户名）— 蓝色背景 + 圆角
+.smart-mbx-target {
+  display: inline-block;
+  max-width: 100%;
+  padding: 2px 10px;
+  margin: 0 3px;
+  background: var(--color-primary-subtle);
+  color: var(--color-primary-dark);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: baseline;
+}
+
+// 辅助说明行（灰色小字）
+.smart-mbx-tip {
+  margin-top: 12px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  background: var(--color-bg, rgba(0, 0, 0, 0.02));
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-border);
+
+  // 危险变体：红色边 + 浅红底 + 红色文字
+  &.smart-mbx-tip--danger {
+    color: var(--color-danger);
+    background: var(--color-danger-light, rgba(245, 108, 108, 0.08));
+    border-left-color: var(--color-danger);
+    b { color: var(--color-danger); font-weight: 600; }
+  }
+
+  // 警告变体：黄色边 + 浅黄底
+  &.smart-mbx-tip--warning {
+    color: var(--color-warning);
+    background: var(--color-warning-light, rgba(230, 162, 60, 0.08));
+    border-left-color: var(--color-warning);
+    b { color: var(--color-warning); font-weight: 600; }
+  }
+
+  // 信息变体：蓝色边 + 浅蓝底
+  &.smart-mbx-tip--info {
+    color: var(--color-primary-dark);
+    background: var(--color-primary-subtle);
+    border-left-color: var(--color-primary);
+    b { color: var(--color-primary); font-weight: 600; }
+  }
+}
+
+// ── MessageBox 富文本辅助样式（dangerouslyUseHTMLString 场景） ─────────
+// 在业务调用时配合使用：
+//   ElMessageBox.confirm(
+//     `<div class="mbx-body">主提示 <b class="mbx-target">name</b>？</div>
+//      <div class="mbx-hint">辅助说明</div>`,
+//     '标题', { dangerouslyUseHTMLString: true, ... })
+.mbx-body {
+  color: var(--color-text);
+  font-size: 14px;
+  line-height: 1.65;
+  word-break: break-word;
+}
+.mbx-target {
+  display: inline;
+  padding: 1px 6px;
+  margin: 0 2px;
+  background: var(--color-primary-subtle);
+  color: var(--color-primary-dark);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  word-break: break-all;
+}
+.mbx-hint {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+
+  &.mbx-danger-tip {
+    color: var(--color-danger);
+    background: var(--color-danger-light, rgba(245, 108, 108, 0.08));
+    border-left: 3px solid var(--color-danger);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+
+    b { color: var(--color-danger); }
+  }
+}
+
+// ── Message (ElMessage 顶部通知) ──────────────────────────────────────
+.el-message {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: 12px 18px !important;
+  border: none !important;
+  min-width: 240px !important;
+}
+
+// ── Scrollbar ─────────────────────────────────────────────────────────
+.el-scrollbar__bar .el-scrollbar__thumb {
+  background-color: var(--color-border) !important;
+  border-radius: 4px !important;
+
+  &:hover {
+    background-color: var(--color-text-muted) !important;
+  }
+}
+
+// ── Breadcrumb ────────────────────────────────────────────────────────
+// Force our theme vars — EP component SCSS may define its own color after global.scss loads.
+.el-breadcrumb__separator {
+  color: var(--color-border) !important;
+}
+
+.el-breadcrumb__inner {
+  color: var(--color-text-muted) !important;
+  transition: color var(--transition-fast) !important;
+
+  &.is-link:hover {
+    color: var(--color-primary) !important;
+  }
+}
+
+.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: var(--color-text) !important;
+  font-weight: 500;
+}
+
+// ── Table / Form background surface ───────────────────────────────────
+// Ensure form and table surfaces use our themed background in dark mode
+.el-table {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text) !important;
+
+  tr,
+  th.el-table__cell,
+  td.el-table__cell {
+    background-color: transparent !important;
+  }
+
+  .el-table__header-wrapper,
+  .el-table__body-wrapper {
+    background-color: transparent !important;
+  }
+}
+
+// ── Fixed columns (left/right) ────────────────────────────────────────
+// Element Plus 2.x 不同小版本的 fixed 列 class 命名不一致：
+//   - 2.0~2.2: .el-table__fixed / .el-table__fixed-right
+//   - 2.3+:    .el-table-fixed-column--left / .el-table-fixed-column--right
+//   - 2.6+:    .el-table__cell.is-fixed-left / .is-fixed-right
+// 这里穷举所有可能的命中点，确保固定列在横向滚动时有不透明背景，
+// 否则下层非固定列的内容会从固定列下方"透出来"，造成视觉上的重叠。
+//
+// 全局生效，所有页面的 <el-table> 自动受益。
+.el-table {
+  // 固定列单元格 — 必须是不透明背景，覆盖 EP 默认的 transparent
+  .el-table__cell.is-fixed-left,
+  .el-table__cell.is-fixed-right,
+  .el-table-fixed-column--left,
+  .el-table-fixed-column--right {
+    background-color: var(--color-surface) !important;
+  }
+
+  // 表头固定列同步表头背景
+  th.el-table__cell.is-fixed-left,
+  th.el-table__cell.is-fixed-right,
+  th.el-table-fixed-column--left,
+  th.el-table-fixed-column--right {
+    background-color: var(--color-surface-elevated) !important;
+  }
+
+  // hover 行的固定列同步 hover 色
+  tr:hover > td.el-table__cell.is-fixed-left,
+  tr:hover > td.el-table__cell.is-fixed-right,
+  tr:hover > td.el-table-fixed-column--left,
+  tr:hover > td.el-table-fixed-column--right {
+    background-color: var(--color-primary-subtle) !important;
+  }
+
+  // 斑马纹的固定列同步条纹色
+  .el-table__row--striped > td.el-table__cell.is-fixed-left,
+  .el-table__row--striped > td.el-table__cell.is-fixed-right,
+  .el-table__row--striped > td.el-table-fixed-column--left,
+  .el-table__row--striped > td.el-table-fixed-column--right {
+    background-color: var(--el-fill-color-lighter, #fafafa) !important;
+  }
+
+  // 老版本的 .el-table__fixed* 容器（整个浮层）
+  .el-table__fixed,
+  .el-table__fixed-right {
+    background-color: var(--color-surface) !important;
+  }
+}
+
+// fixed-right 列左侧 / fixed-left 列右侧加一道阴影分隔线，
+// 让用户能直观感知"这是悬浮固定列"，明显区分滚动区。
+.el-table .el-table-fixed-column--right.is-first-column,
+.el-table__fixed-right {
+  box-shadow: -4px 0 8px -4px rgba(0, 0, 0, 0.08) !important;
+}
+.el-table .el-table-fixed-column--left.is-last-column,
+.el-table__fixed {
+  box-shadow: 4px 0 8px -4px rgba(0, 0, 0, 0.08) !important;
+}
+
+// ── 表格操作列：统一布局 ──────────────────────────────────────────────
+// 在表格内的"操作"列里用 <div class="op-cell">...</div> 包裹按钮，
+// 即可获得：水平排列、间距均匀、不换行、不与相邻文字粘连。
+//
+// 用法示例：
+//   <el-table-column label="操作" width="240" fixed="right" align="center">
+//     <template #default="{ row }">
+//       <div class="op-cell">
+//         <el-button size="small" type="primary" plain @click="...">编辑</el-button>
+//         <el-button size="small" type="danger" plain @click="...">删除</el-button>
+//       </div>
+//     </template>
+//   </el-table-column>
+.op-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+
+  // 覆盖 ElementPlus 相邻按钮的负 margin，避免按钮粘连
+  .el-button + .el-button {
+    margin-left: 0 !important;
+  }
+}
+
+// ── Form inputs ───────────────────────────────────────────────────────
+.el-input__inner,
+.el-textarea__inner {
+  color: var(--color-text) !important;
+  background-color: var(--el-fill-color-blank) !important;
+}
+
+.el-select-dropdown__item {
+  color: var(--color-text-regular) !important;
+
+  &.is-selected,
+  &.selected {
+    color: var(--color-primary) !important;
+  }
+
+  &:hover {
+    background-color: var(--color-primary-subtle) !important;
+  }
+}

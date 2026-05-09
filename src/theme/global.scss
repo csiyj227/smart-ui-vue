@@ -1,0 +1,222 @@
+// Global styles — premium visual layer
+
+@use './variables';
+@use './dark';
+@use './transition';
+@use './element-override';
+
+// ── Reset ─────────────────────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  font-family: 'Inter', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ── Scrollbar ─────────────────────────────────────────────────────────
+* {
+  @include scrollbar;
+}
+
+// ── Links ─────────────────────────────────────────────────────────────
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-primary-light);
+  }
+}
+
+// ── Text selection ────────────────────────────────────────────────────
+::selection {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary-dark);
+}
+
+// ── Utility ───────────────────────────────────────────────────────────
+.flex-center   { @include flex-center; }
+.flex-between  { @include flex-between; }
+.flex-start    { @include flex-start; }
+.flex-1        { flex: 1; min-width: 0; }
+.truncate      { @include truncate; }
+.cursor-pointer { cursor: pointer; }
+
+// ── Page container ────────────────────────────────────────────────────
+.page-container {
+  padding: 20px;
+}
+
+// ── Search bar card ───────────────────────────────────────────────────
+.search-bar {
+  @include flex-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 18px 20px;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+// ── Table card ────────────────────────────────────────────────────────
+.table-card {
+  padding: 20px;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+// ── NProgress ─────────────────────────────────────────────────────────
+#nprogress {
+  .bar {
+    background: var(--color-primary) !important;
+    height: 2px !important;
+  }
+  .peg {
+    box-shadow: 0 0 10px var(--color-primary), 0 0 5px var(--color-primary) !important;
+  }
+}
+
+// ── Gradient text utility ─────────────────────────────────────────────
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ── Table 全局规范 ────────────────────────────────────────────────────
+// element-plus v2 的 fixed 列是 position: sticky 的 td / th，类名是
+// .el-table-fixed-column--right / .el-table-fixed-column--left
+// 必须给这些单元格强制实色背景，否则其他列横向滚动时会从下面"穿过去"
+// （default 行是透明的，只有 hover 行 element-plus 才自己加了背景，
+//  这就是"只有 hover 时不重叠"的根因）
+.el-table {
+  // ── 右侧固定列：所有状态都要有实色背景 ──
+  th.el-table-fixed-column--right,
+  td.el-table-fixed-column--right {
+    background-color: var(--el-bg-color, #ffffff) !important;
+  }
+  // 表头底色用表头专用色
+  th.el-table-fixed-column--right {
+    background-color: var(--el-table-header-bg-color, #fafafa) !important;
+  }
+  // 斑马纹行
+  tr.el-table__row--striped td.el-table-fixed-column--right {
+    background-color: var(--el-table-row-hover-bg-color, #fafafa) !important;
+  }
+  // hover 行（保持和左侧 hover 一致）
+  tr.hover-row td.el-table-fixed-column--right,
+  tr:hover > td.el-table-fixed-column--right {
+    background-color: var(--el-table-row-hover-bg-color, #f5f7fa) !important;
+  }
+
+  // ── 左侧固定列：同理 ──
+  th.el-table-fixed-column--left,
+  td.el-table-fixed-column--left {
+    background-color: var(--el-bg-color, #ffffff) !important;
+  }
+  th.el-table-fixed-column--left {
+    background-color: var(--el-table-header-bg-color, #fafafa) !important;
+  }
+  tr.el-table__row--striped td.el-table-fixed-column--left {
+    background-color: var(--el-table-row-hover-bg-color, #fafafa) !important;
+  }
+  tr.hover-row td.el-table-fixed-column--left,
+  tr:hover > td.el-table-fixed-column--left {
+    background-color: var(--el-table-row-hover-bg-color, #f5f7fa) !important;
+  }
+
+  // ── 阴影分隔（element-plus 默认的 .is-first-column / .is-last-column 阴影偏弱） ──
+  // 右侧固定列最左那一列：在左边画阴影
+  td.el-table-fixed-column--right.is-first-column::before,
+  th.el-table-fixed-column--right.is-first-column::before {
+    box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.12);
+  }
+  // 左侧固定列最右那一列：在右边画阴影
+  td.el-table-fixed-column--left.is-last-column::before,
+  th.el-table-fixed-column--left.is-last-column::before {
+    box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.12);
+  }
+
+  // 操作列里的按钮间距
+  .el-table__cell .el-button + .el-button {
+    margin-left: 8px;
+  }
+  // 单元格内默认行高
+  .cell {
+    line-height: 22px;
+    word-break: break-word;
+  }
+}
+
+// 暗色模式：换深色背景
+html.dark .el-table {
+  th.el-table-fixed-column--right,
+  td.el-table-fixed-column--right,
+  th.el-table-fixed-column--left,
+  td.el-table-fixed-column--left {
+    background-color: var(--el-bg-color, #141414) !important;
+  }
+  th.el-table-fixed-column--right,
+  th.el-table-fixed-column--left {
+    background-color: var(--el-table-header-bg-color, #1d1e1f) !important;
+  }
+  tr.el-table__row--striped td.el-table-fixed-column--right,
+  tr.el-table__row--striped td.el-table-fixed-column--left {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+  }
+  tr.hover-row td.el-table-fixed-column--right,
+  tr.hover-row td.el-table-fixed-column--left,
+  tr:hover > td.el-table-fixed-column--right,
+  tr:hover > td.el-table-fixed-column--left {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+  }
+}
+
+// ── Premium button base ───────────────────────────────────────────────
+.btn-premium {
+  background: var(--gradient-primary);
+  border: none;
+  color: #fff;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-primary);
+  transition: all var(--transition-normal);
+
+  &:hover {
+    background: var(--gradient-primary-hover);
+    box-shadow: 0 6px 20px var(--color-primary-glow-strong);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

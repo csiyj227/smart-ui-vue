@@ -1,0 +1,189 @@
+/**
+ * 自定义节点共享样式。
+ *
+ * 设计目标：
+ *   - 8 种节点视觉风格统一（圆角矩形 + 左侧色条 + 主标题 + 副标题），
+ *     避免每种节点单独写一套 CSS；
+ *   - 通过 CSS 变量 --kind-color 把主色调外置，节点组件里只需要 style 注入
+ *     一行；
+ *   - 选中态 / 校验失败态用 box-shadow 而不是 outline，避免和 VueFlow
+ *     自带的连接桩（handle）位置打架。
+ */
+
+.smart-flow-node {
+  position: relative;
+  min-width: 160px;
+  padding: 10px 14px 10px 18px;
+  background: var(--el-bg-color);
+  border: 1px solid var(--el-border-color);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  font-size: 13px;
+  color: var(--el-text-color-primary);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+  cursor: grab;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  &.is-selected {
+    border-color: var(--kind-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--kind-color) 25%, transparent);
+  }
+
+  &.is-invalid {
+    border-color: var(--el-color-danger);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--el-color-danger) 25%, transparent);
+  }
+
+  // 左侧 4px 色条 —— 只用 ::before 实现，避免影响节点 hit-area
+  &::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 4px;
+    width: 4px;
+    border-radius: 2px;
+    background: var(--kind-color);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+  }
+
+  &__icon {
+    color: var(--kind-color);
+    font-size: 14px;
+  }
+
+  &__label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__subtitle {
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--el-text-color-secondary);
+    line-height: 1.4;
+  }
+
+  &__error-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--el-color-danger);
+    color: #fff;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    box-shadow: 0 0 0 2px var(--el-bg-color);
+  }
+}
+
+// VueFlow 自带连接桩稍微调小，节点更精致
+.smart-flow-node + .vue-flow__handle,
+.smart-flow-node .vue-flow__handle {
+  width: 8px;
+  height: 8px;
+  background: var(--kind-color);
+  border: 2px solid var(--el-bg-color);
+}
+
+// 网关类节点（BRANCH）做成菱形以增强「条件判断」的视觉辨识度
+.smart-flow-node--diamond {
+  min-width: 80px;
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  // 菱形外框：旋转 45° 的正方形，不拦截鼠标事件以免遮挡 Handle
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--kind-color);
+    border-radius: 4px;
+    background: var(--el-bg-color);
+    transform: translate(-50%, -50%) rotate(45deg);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  // 内容层保持水平
+  .smart-flow-node__header {
+    position: relative;
+    z-index: 1;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .smart-flow-node__label {
+    font-size: 11px;
+  }
+
+  // Handle 必须在菱形之上才能被拖拽
+  .vue-flow__handle {
+    z-index: 2;
+  }
+
+  &:hover::before {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  &.is-selected::before {
+    border-color: var(--kind-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--kind-color) 25%, transparent);
+  }
+
+  &.is-invalid::before {
+    border-color: var(--el-color-danger);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--el-color-danger) 25%, transparent);
+  }
+}
+
+.smart-flow-node--circle {
+  min-width: 80px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  &::before {
+    display: none;
+  }
+
+  .smart-flow-node__header {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .smart-flow-node__label {
+    font-size: 12px;
+  }
+}

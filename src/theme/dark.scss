@@ -1,0 +1,95 @@
+// Dark mode — standard neutral dark (macOS-style, no purple tint)
+// html[data-theme="dark"] has specificity (0,1,1) — beats :root (0,1,0) from variables.scss
+// and any EP component :root blocks injected at runtime.
+html[data-theme="dark"] {
+  // ── Backgrounds ──────────────────────────────────────────────────────
+  --color-bg: #111113;
+  --color-surface: #1C1C1E;
+  --color-surface-elevated: #2C2C2E;
+
+  // ── Borders ──────────────────────────────────────────────────────────
+  --color-border: #3A3A3C;
+  --color-border-light: #2C2C2E;
+
+  // ── Text ─────────────────────────────────────────────────────────────
+  --color-text: #F5F5F7;
+  --color-text-regular: #AEAEB2;
+  --color-text-muted: #636366;
+  --color-text-inverse: #000000;
+
+  // ── Status light variants ─────────────────────────────────────────────
+  --color-success-light: #1A3A2A;
+  --color-warning-light: #3A2A10;
+  --color-danger-light: #3A1A1A;
+
+  // ── Sidebar ───────────────────────────────────────────────────────────
+  --gradient-sidebar: linear-gradient(180deg, #0D0D0F 0%, #080809 100%);
+  --sidebar-bg: #0A0A0C;
+  --sidebar-bg-secondary: #111113;
+  --sidebar-text: #8E8E93;
+  --sidebar-text-active: #FFFFFF;
+  --sidebar-text-muted: #48484A;
+
+  // ── Header ────────────────────────────────────────────────────────────
+  --header-bg: rgba(28, 28, 30, 0.92);
+  --header-border: rgba(58, 58, 60, 0.8);
+
+  // ── TagsView ──────────────────────────────────────────────────────────
+  --tags-bg: rgba(28, 28, 30, 0.95);
+  --tags-item-bg: #2C2C2E;
+
+  // ── Shadows ───────────────────────────────────────────────────────────
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.6);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+  // ── Element Plus overrides ────────────────────────────────────────────
+  --el-bg-color: #111113;
+  --el-bg-color-overlay: #1C1C1E;
+  --el-bg-color-page: #111113;
+  --el-border-color: #3A3A3C;
+  --el-border-color-light: #2C2C2E;
+  --el-border-color-lighter: #252527;
+  --el-border-color-extra-light: #1C1C1E;
+  --el-text-color-primary: #F5F5F7;
+  --el-text-color-regular: #AEAEB2;
+  --el-text-color-secondary: #636366;
+  --el-text-color-placeholder: #48484A;
+  --el-fill-color: #2C2C2E;
+  --el-fill-color-light: #1C1C1E;
+  --el-fill-color-lighter: #111113;
+  --el-fill-color-blank: #1C1C1E;
+  --el-mask-color: rgba(0, 0, 0, 0.75);
+  --el-color-primary-light-9: #1C2040;
+
+  // ── MessageBox 暗色模式 ──
+  // ElMessageBox 在 dark 模式下需要显式设置背景和文字色，
+  // 因为它 teleport 到 body，可能无法继承组件树内的 dark 类名变量。
+  .el-message-box {
+    background-color: var(--color-surface) !important;
+    border-color: var(--color-border) !important;
+
+    .el-message-box__title {
+      color: var(--color-text) !important;
+    }
+
+    .el-message-box__content,
+    .el-message-box__message,
+    .el-message-box__message p {
+      color: var(--color-text-regular) !important;
+    }
+
+    .el-message-box__headerbtn .el-message-box__close {
+      color: var(--color-text-muted) !important;
+
+      &:hover {
+        color: var(--color-text) !important;
+      }
+    }
+  }
+
+  .el-overlay-message-box {
+    background-color: var(--el-mask-color) !important;
+  }
+}
