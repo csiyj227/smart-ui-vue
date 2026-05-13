@@ -113,7 +113,7 @@
         <el-descriptions-item :label="t('system.log.operator')">{{ currentLog?.createBy }}</el-descriptions-item>
         <el-descriptions-item :label="t('system.log.createTime')">{{ formatDateTime(currentLog?.createTime) }}</el-descriptions-item>
         <el-descriptions-item :label="t('system.log.traceId')" :span="2">
-          <el-text v-if="currentLog?.traceId" type="info" size="small" style="font-family: monospace">{{ currentLog.traceId }}</el-text>
+          <el-text v-if="(currentLog as any)?.traceId" type="info" size="small" style="font-family: monospace">{{ (currentLog as any).traceId }}</el-text>
           <span v-else style="color: var(--el-text-color-disabled)">—</span>
         </el-descriptions-item>
         <el-descriptions-item :label="t('system.log.userAgent')" :span="2">{{ currentLog?.userAgent }}</el-descriptions-item>

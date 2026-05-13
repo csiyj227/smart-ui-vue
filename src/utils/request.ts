@@ -8,15 +8,18 @@ import i18n, { globalLocale } from '@/i18n'
 declare module 'axios' {
   interface AxiosRequestConfig {
     skipError?: boolean
+    skipAuth?: boolean
   }
   interface InternalAxiosRequestConfig {
     skipError?: boolean
+    skipAuth?: boolean
   }
 }
 
 /** Shorthand for accessing i18n.global.t in non-component code */
+// @ts-ignore
 function t(key: string, named?: Record<string, unknown>): string {
-  return i18n.global.t(key, named ?? {})
+  return (i18n.global.t as any)(key, named ?? {})
 }
 
 const OAUTH2_ERROR_KEYS: Record<string, string> = {
@@ -98,6 +101,12 @@ request.interceptors.response.use(
       const { status, data } = error.response
       const isLoginRequest = error.config?.url?.includes('/oauth2/token')
       const isOnLoginPage = router.currentRoute.value.path === '/login'
+
+      // 演示环境拦截（423 Locked）—— 优先处理，只弹一次提示，不再向调用方抛出错误
+      if (status === 423) {
+        ElMessage.warning(t('request.demoDisabled'))
+        return new Promise(() => {})
+      }
 
       // OAuth2 error format: { error: "access_denied", error_description: "..." }
       if (data && data.error && !data.code) {

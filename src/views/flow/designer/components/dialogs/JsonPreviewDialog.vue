@@ -44,7 +44,7 @@ const onCopy = async () => {
     @update:model-value="(v: boolean) => emit('update:modelValue', v)"
   >
     <div class="json-preview">
-      <VueJsonPretty :data="dsl" :deep="3" :show-line-number="true" />
+      <VueJsonPretty :data="(dsl as any)" :deep="3" :show-line-number="true" />
     </div>
     <template #footer>
       <ElButton @click="emit('update:modelValue', false)">关闭</ElButton>

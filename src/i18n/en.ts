@@ -51,6 +51,7 @@ export default {
   request: {
     operationFailed: 'Operation failed',
     networkError: 'Network error, please check your connection',
+    demoDisabled: 'This operation is disabled in demo environment',
     requestFailed: 'Request failed ({status})',
     oauth2: {
       access_denied: 'Invalid username or password',
@@ -446,7 +447,6 @@ export default {
       reasonLabel: 'Travel Reason',
       reasonPlaceholder: 'Describe travel reason',
       departureLabel: 'Departure',
-      destinationLabel: 'Destination',
       departurePlaceholder: 'e.g., Hangzhou',
       destinationPlaceholder: 'e.g., Beijing',
       startTimeLabel: 'Start Time',

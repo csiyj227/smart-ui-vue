@@ -79,7 +79,7 @@ function onUpdate(value: unknown) {
   <!-- SELECT -->
   <ElSelect
     v-else-if="field.fieldType === 'SELECT'"
-    :model-value="modelValue"
+    :model-value="(modelValue as any)"
     :placeholder="field.placeholder"
     :disabled="disabled"
     :multiple="field.multiple"
@@ -142,7 +142,7 @@ function onUpdate(value: unknown) {
   <ElCascader
     v-else-if="field.fieldType === 'CASCADER'"
     :model-value="modelValue as string[]"
-    :options="field.cascaderOptions ?? []"
+    :options="(field.cascaderOptions ?? []) as any"
     :placeholder="field.placeholder"
     :disabled="disabled"
     clearable
@@ -154,7 +154,7 @@ function onUpdate(value: unknown) {
   <!-- USER_SELECT / DEPT_SELECT / ROLE_SELECT -->
   <ElSelect
     v-else-if="field.fieldType === 'USER_SELECT' || field.fieldType === 'DEPT_SELECT' || field.fieldType === 'ROLE_SELECT'"
-    :model-value="modelValue"
+    :model-value="(modelValue as any)"
     :placeholder="field.placeholder"
     :disabled="disabled"
     :multiple="field.multiple"

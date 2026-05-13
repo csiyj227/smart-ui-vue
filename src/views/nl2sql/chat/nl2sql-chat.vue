@@ -49,7 +49,7 @@ import {
   CHATBI_COLORS,
 } from '@/utils/echarts-theme';
 
-registerEchartsTheme(echarts);
+registerEchartsTheme(echarts as any);
 
 /* =============================================================================
  * 数据集 + 会话列表
@@ -765,7 +765,6 @@ onMounted(async () => {
 
     <!-- SQL 编辑弹窗 -->
     <el-dialog
-      v-model="sqlEditing"
       :model-value="!!sqlEditing"
       :title="t('nl2sql.chat.editSqlDialogTitle')"
       width="720px"

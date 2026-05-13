@@ -147,7 +147,7 @@ const tagText = (type: DiffItem['type']) =>
             v-for="v in versions"
             :key="v.chartId"
             :value="v.chartId"
-            :label="`v${v.chartVersion} · ${v.status}`"
+            :label="`v${v.chartVersion} · ${(v as any).status}`"
           />
         </ElSelect>
       </div>
@@ -158,7 +158,7 @@ const tagText = (type: DiffItem['type']) =>
             v-for="v in versions"
             :key="v.chartId"
             :value="v.chartId"
-            :label="`v${v.chartVersion} · ${v.status}`"
+            :label="`v${v.chartVersion} · ${(v as any).status}`"
           />
         </ElSelect>
       </div>

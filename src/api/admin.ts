@@ -19,6 +19,8 @@ import type {
   GenTable,
   GenTemplate,
   GenTemplateGroup,
+  SysPublicParam,
+  SysRouteConf,
 } from '@/types/api'
 
 // Profile (当前登录用户自助接口，无需任何业务权限)

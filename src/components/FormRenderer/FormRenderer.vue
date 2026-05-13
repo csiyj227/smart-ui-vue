@@ -363,7 +363,7 @@ defineExpose({
           <!-- SELECT -->
           <ElSelect
             v-else-if="field.fieldType === 'SELECT'"
-            :model-value="getFieldValue(field.fieldKey)"
+            :model-value="(getFieldValue(field.fieldKey) as any)"
             :placeholder="field.placeholder"
             :disabled="isFieldReadonly(field)"
             :multiple="field.multiple"
@@ -426,7 +426,7 @@ defineExpose({
           <ElCascader
             v-else-if="field.fieldType === 'CASCADER'"
             :model-value="getFieldValue(field.fieldKey) as string[]"
-            :options="field.cascaderOptions ?? []"
+            :options="(field.cascaderOptions ?? []) as any"
             :placeholder="field.placeholder"
             :disabled="isFieldReadonly(field)"
             clearable
@@ -438,7 +438,7 @@ defineExpose({
           <!-- USER_SELECT / DEPT_SELECT / ROLE_SELECT（简化为 ElSelect，实际项目可接入组织架构接口） -->
           <ElSelect
             v-else-if="field.fieldType === 'USER_SELECT' || field.fieldType === 'DEPT_SELECT' || field.fieldType === 'ROLE_SELECT'"
-            :model-value="getFieldValue(field.fieldKey)"
+            :model-value="(getFieldValue(field.fieldKey) as any)"
             :placeholder="field.placeholder"
             :disabled="isFieldReadonly(field)"
             :multiple="field.multiple"

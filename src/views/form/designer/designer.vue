@@ -307,7 +307,7 @@ function onUpdateConfig(updates: Record<string, unknown>) {
     <!-- 主体三栏 -->
     <ElContainer class="form-designer__body">
       <ElAside class="form-designer__aside form-designer__aside--left" width="240px">
-        <FieldPalette @add-field="onAddField" />
+        <FieldPalette @add-field="(onAddField as any)" />
       </ElAside>
 
       <ElMain class="form-designer__canvas" @click.self="onDeselectField">

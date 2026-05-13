@@ -208,7 +208,7 @@ onMounted(() => {
             <ElDescriptionsItem :label="t('flow.common.status')">
               <ElTag
                 v-if="instanceDetail.bizStatus"
-                :type="BIZ_STATUS_TAG_TYPE[instanceDetail.bizStatus] || 'info'"
+                :type="(BIZ_STATUS_TAG_TYPE[instanceDetail.bizStatus] || 'info') as any"
               >
                 {{ BIZ_STATUS_LABEL[instanceDetail.bizStatus] || instanceDetail.bizStatus }}
               </ElTag>
@@ -265,7 +265,7 @@ onMounted(() => {
                   <div class="task-list__timeline-header">
                     <ElTag
                       v-if="record.actionType"
-                      :type="ACTION_TYPE_TAG[record.actionType] || ''"
+                      :type="(ACTION_TYPE_TAG[record.actionType] || '') as any"
                       size="small"
                     >
                       {{ ACTION_TYPE_TEXT[record.actionType] || record.actionType }}

@@ -280,7 +280,7 @@ async function loadCaptcha() {
   captchaLoading.value = true
   try {
     const { data } = await getCaptcha()
-    const result = data.data
+    const result = (data as any).data
     if (result && result.type !== 'disabled') {
       captchaData.value = result
     } else {
@@ -311,7 +311,7 @@ async function handleSocialLogin(providerType: string) {
   try {
     const redirectUri = `${window.location.origin}/social-callback`
     const { data } = await getSocialAuthorizeUrl(providerType, redirectUri)
-    const result = data.data
+    const result = (data as any).data
     if (result?.url) {
       window.location.href = result.url
     }

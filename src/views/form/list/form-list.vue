@@ -41,6 +41,7 @@ import {
   type FormStatusCode,
 } from '@/types/form';
 
+import type { PageResult } from '@/types/api';
 const router = useRouter();
 const { t } = useI18n();
 

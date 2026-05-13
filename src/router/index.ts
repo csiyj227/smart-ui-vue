@@ -121,7 +121,7 @@ const staticRoutes: RouteRecordRaw[] = [
   /*
    * smart-form 表单管理模块路由。
    *
-   * 与 smart-flow 保持相同的静态路由模式。后端接口在 smart-upms 的
+   * 与 smart-flow 保持相同的静态路由模式。后端接口在 smart-system 的
    * SysFormController（/form）和 smart-flow 的 FormBindingController
    * （/flow/form）中提供。
    */

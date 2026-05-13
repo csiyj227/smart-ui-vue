@@ -9,18 +9,9 @@ export type LocaleType = 'zh-CN' | 'en'
 const STORAGE_KEY = 'smart_locale'
 
 export function getStoredLocale(): LocaleType {
-  return (getStorage(STORAGE_KEY) as LocaleType) || 'zh-CN'
+  return (getStorage(STORAGE_KEY, 'zh-CN' as LocaleType) as LocaleType) || 'zh-CN'
 }
-
-const i18n = createI18n({
-  legacy: false,
-  locale: getStoredLocale(),
-  fallbackLocale: 'zh-CN',
-  messages: {
-    'zh-CN': zhCN,
-    en,
-  },
-})
+const i18n = (createI18n as any)({ legacy: false, locale: getStoredLocale(), fallbackLocale: 'zh-CN', messages: { 'zh-CN': zhCN, en } });
 
 /**
  * 全局 locale 的响应式引用。

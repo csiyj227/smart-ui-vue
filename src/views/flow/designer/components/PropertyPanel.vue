@@ -346,12 +346,12 @@ const patchEdgeField = (patch: Partial<FlowEdgeDsl>) => {
           <template v-else>
             <!-- 多个动态表单时需选择要配置的表单 -->
             <ElFormItem v-if="chartDynamicForms.length > 1" label="选择表单">
-              <ElSelect v-model="selectedPermFormId" size="small" style="width: 100%">
+              <ElSelect :model-value="(selectedPermFormId as any)" @update:model-value="(v: any) => selectedPermFormId = v" size="small" style="width: 100%">
                 <ElOption
                   v-for="form in chartDynamicForms"
                   :key="form.formId"
                   :label="form.name"
-                  :value="form.formId"
+                  :value="form.formId as any"
                 />
               </ElSelect>
             </ElFormItem>
@@ -372,9 +372,9 @@ const patchEdgeField = (patch: Partial<FlowEdgeDsl>) => {
                   {{ field.label || field.fieldKey }}
                 </span>
                 <ElRadioGroup
-                  :model-value="getFieldRule(field.fieldKey)"
+                  :model-value="(getFieldRule(field.fieldKey) as any)"
                   size="small"
-                  @update:model-value="(v: string) => setFieldRule(field.fieldKey, v as 'rw' | 'r' | 'hidden')"
+                  @update:model-value="(v: any) => setFieldRule(field.fieldKey, v)"
                 >
                   <ElRadioButton value="rw">可编辑</ElRadioButton>
                   <ElRadioButton value="r">只读</ElRadioButton>

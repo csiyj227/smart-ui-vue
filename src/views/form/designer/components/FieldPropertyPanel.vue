@@ -39,16 +39,16 @@
             </el-form-item>
 
             <el-form-item label="字段标签">
-              <el-input v-model="localField.label" @change="handleFieldChange('label', $event)" />
+              <el-input v-model="localField!.label" @change="handleFieldChange('label', $event)" />
             </el-form-item>
 
             <el-form-item label="占位提示">
-              <el-input v-model="localField.placeholder" @change="handleFieldChange('placeholder', $event)" />
+              <el-input v-model="localField!.placeholder" @change="handleFieldChange('placeholder', $event)" />
             </el-form-item>
 
             <el-form-item label="栅格跨度">
               <el-slider
-                v-model="localField.span"
+                v-model="localField!.span"
                 :min="1"
                 :max="24"
                 :show-input="true"
@@ -57,11 +57,11 @@
             </el-form-item>
 
             <el-form-item label="只读">
-              <el-switch v-model="localField.readonly" @change="(val) => handleFieldChange('readonly', val)" />
+              <el-switch v-model="localField!.readonly" @change="(val) => handleFieldChange('readonly', val)" />
             </el-form-item>
 
             <el-form-item label="隐藏">
-              <el-switch v-model="localField.hidden" @change="(val) => handleFieldChange('hidden', val)" />
+              <el-switch v-model="localField!.hidden" @change="(val) => handleFieldChange('hidden', val)" />
             </el-form-item>
 
             <!-- 特定类型属性 -->
@@ -72,7 +72,7 @@
               <template v-if="field.fieldType === 'SELECT'">
                 <el-form-item label="选项列表">
                   <div class="option-editor">
-                    <div v-for="(option, index) in localField.options" :key="index" class="option-row">
+                    <div v-for="(option, index) in localField!.options" :key="index" class="option-row">
                       <el-input v-model="option.label" placeholder="标签" size="small" style="width: 45%" @change="handleOptionsChange" />
                       <el-input v-model="option.value" placeholder="值" size="small" style="width: 45%" @change="handleOptionsChange" />
                       <el-button type="danger" size="small" icon="Delete" @click="removeOption(index)" />
@@ -82,25 +82,25 @@
                 </el-form-item>
 
                 <el-form-item label="多选">
-                  <el-switch v-model="localField.multiple" @change="(val) => handleFieldChange('multiple', val)" />
+                  <el-switch v-model="localField!.multiple" @change="(val) => handleFieldChange('multiple', val)" />
                 </el-form-item>
               </template>
 
               <!-- NUMBER 类型 -->
               <template v-if="field.fieldType === 'NUMBER'">
                 <el-form-item label="精度">
-                  <el-input-number v-model="localField.precision" :min="0" @change="(val) => handleFieldChange('precision', val)" />
+                  <el-input-number v-model="localField!.precision" :min="0" @change="(val) => handleFieldChange('precision', val)" />
                 </el-form-item>
 
                 <el-form-item label="步进">
-                  <el-input-number v-model="localField.step" :min="0" @change="(val) => handleFieldChange('step', val)" />
+                  <el-input-number v-model="localField!.step" :min="0" @change="(val) => handleFieldChange('step', val)" />
                 </el-form-item>
               </template>
 
               <!-- DATE 类型 -->
               <template v-if="field.fieldType === 'DATE'">
                 <el-form-item label="日期类型">
-                  <el-select v-model="localField.dateType" @change="(val) => handleFieldChange('dateType', val)">
+                  <el-select v-model="localField!.dateType" @change="(val) => handleFieldChange('dateType', val)">
                     <el-option label="日期" value="date" />
                     <el-option label="日期时间" value="datetime" />
                     <el-option label="日期范围" value="daterange" />
@@ -111,29 +111,29 @@
                 </el-form-item>
 
                 <el-form-item label="日期格式">
-                  <el-input v-model="localField.dateFormat" placeholder="如: YYYY-MM-DD" @change="handleFieldChange('dateFormat', $event)" />
+                  <el-input v-model="localField!.dateFormat" placeholder="如: YYYY-MM-DD" @change="handleFieldChange('dateFormat', $event)" />
                 </el-form-item>
               </template>
 
               <!-- UPLOAD 类型 -->
               <template v-if="field.fieldType === 'UPLOAD'">
                 <el-form-item label="允许文件类型">
-                  <el-input v-model="localField.acceptFileTypes" placeholder="如: .jpg,.png,.pdf" @change="handleFieldChange('acceptFileTypes', $event)" />
+                  <el-input v-model="localField!.acceptFileTypes" placeholder="如: .jpg,.png,.pdf" @change="handleFieldChange('acceptFileTypes', $event)" />
                 </el-form-item>
 
                 <el-form-item label="最大文件数">
-                  <el-input-number v-model="localField.maxFileCount" :min="1" @change="(val) => handleFieldChange('maxFileCount', val)" />
+                  <el-input-number v-model="localField!.maxFileCount" :min="1" @change="(val) => handleFieldChange('maxFileCount', val)" />
                 </el-form-item>
 
                 <el-form-item label="单文件最大大小(MB)">
-                  <el-input-number v-model="localField.maxFileSizeMb" :min="1" @change="(val) => handleFieldChange('maxFileSizeMb', val)" />
+                  <el-input-number v-model="localField!.maxFileSizeMb" :min="1" @change="(val) => handleFieldChange('maxFileSizeMb', val)" />
                 </el-form-item>
               </template>
 
               <!-- RICH_TEXT 类型 -->
               <template v-if="field.fieldType === 'RICH_TEXT'">
                 <el-form-item label="编辑器高度">
-                  <el-input-number v-model="localField.editorHeight" :min="100" @change="(val) => handleFieldChange('editorHeight', val)" />
+                  <el-input-number v-model="localField!.editorHeight" :min="100" @change="(val) => handleFieldChange('editorHeight', val)" />
                 </el-form-item>
               </template>
 
@@ -153,7 +153,7 @@
               <!-- USER_SELECT/DEPT_SELECT/ROLE_SELECT 类型 -->
               <template v-if="['USER_SELECT', 'DEPT_SELECT', 'ROLE_SELECT'].includes(field.fieldType)">
                 <el-form-item label="多选">
-                  <el-switch v-model="localField.multiple" @change="(val) => handleFieldChange('multiple', val)" />
+                  <el-switch v-model="localField!.multiple" @change="(val) => handleFieldChange('multiple', val)" />
                 </el-form-item>
               </template>
 
@@ -161,7 +161,7 @@
               <template v-if="field.fieldType === 'TABS'">
                 <el-form-item label="标签页管理">
                   <div class="tab-manager">
-                    <div v-for="(tab, index) in localField.tabs" :key="tab.key" class="tab-row">
+                    <div v-for="(tab, index) in localField!.tabs" :key="tab.key" class="tab-row">
                       <el-input v-model="tab.label" placeholder="标签名称" size="small" style="flex: 1" @change="handleTabsChange" />
                       <el-button type="danger" size="small" icon="Delete" @click="removeTab(index)" />
                     </div>
@@ -174,7 +174,7 @@
               <template v-if="field.fieldType === 'GRID'">
                 <el-form-item label="列管理">
                   <div class="grid-manager">
-                    <div v-for="(col, index) in localField.columns" :key="index" class="grid-row">
+                    <div v-for="(col, index) in localField!.columns" :key="index" class="grid-row">
                       <el-input-number v-model="col.span" :min="1" :max="24" size="small" style="width: 60%" @change="handleColumnsChange" />
                       <el-button type="danger" size="small" icon="Delete" @click="removeColumn(index)" />
                     </div>
@@ -337,19 +337,19 @@ const addOption = () => {
   if (!localField.value.options) {
     localField.value.options = []
   }
-  localField.value.options.push({ label: '', value: '' })
+  localField.value!.options.push({ label: '', value: '' })
   handleOptionsChange()
 }
 
 const removeOption = (index: number) => {
   if (!localField.value?.options) return
-  localField.value.options.splice(index, 1)
+  localField.value!.options.splice(index, 1)
   handleOptionsChange()
 }
 
 const handleOptionsChange = () => {
   if (props.field && localField.value?.options) {
-    emit('update-field', props.field.fieldKey, { options: [...localField.value.options] })
+    emit('update-field', props.field.fieldKey, { options: [...localField.value!.options] })
   }
 }
 
@@ -371,19 +371,19 @@ const addTab = () => {
     localField.value.tabs = []
   }
   const newKey = `tab_${Date.now()}`
-  localField.value.tabs.push({ key: newKey, label: '新标签页', children: [] })
+  localField.value!.tabs.push({ key: newKey, label: '新标签页', children: [] })
   handleTabsChange()
 }
 
 const removeTab = (index: number) => {
   if (!localField.value?.tabs) return
-  localField.value.tabs.splice(index, 1)
+  localField.value!.tabs.splice(index, 1)
   handleTabsChange()
 }
 
 const handleTabsChange = () => {
   if (props.field && localField.value?.tabs) {
-    emit('update-field', props.field.fieldKey, { tabs: [...localField.value.tabs] })
+    emit('update-field', props.field.fieldKey, { tabs: [...localField.value!.tabs] })
   }
 }
 
@@ -393,19 +393,19 @@ const addColumn = () => {
   if (!localField.value.columns) {
     localField.value.columns = []
   }
-  localField.value.columns.push({ span: 12, children: [] })
+  localField.value!.columns.push({ span: 12, children: [] })
   handleColumnsChange()
 }
 
 const removeColumn = (index: number) => {
   if (!localField.value?.columns) return
-  localField.value.columns.splice(index, 1)
+  localField.value!.columns.splice(index, 1)
   handleColumnsChange()
 }
 
 const handleColumnsChange = () => {
   if (props.field && localField.value?.columns) {
-    emit('update-field', props.field.fieldKey, { columns: [...localField.value.columns] })
+    emit('update-field', props.field.fieldKey, { columns: [...localField.value!.columns] })
   }
 }
 </script>

@@ -67,7 +67,7 @@ async function fetchList() {
       pageNum: query.pageNum,
       pageSize: query.pageSize,
       keyword: query.keyword || undefined,
-      status: '1',  // 1 = 已发布（后端 publish_status 编码）
+      status: '1' as any,  // 1 = 已发布（后端 publish_status 编码）
     });
     const body = (axiosRes as any).data;
     const page = body?.data as PageResult<FlowDefinitionView> | undefined;

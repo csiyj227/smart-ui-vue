@@ -51,6 +51,7 @@ export default {
   request: {
     operationFailed: '操作失败',
     networkError: '网络连接异常，请检查网络',
+    demoDisabled: '演示环境不支持此操作',
     requestFailed: '请求失败（{status}）',
     oauth2: {
       access_denied: '用户名或密码错误',
@@ -446,7 +447,6 @@ export default {
       reasonLabel: '出差事由',
       reasonPlaceholder: '请描述出差事由',
       departureLabel: '出发地',
-      destinationLabel: '目的地',
       departurePlaceholder: '如：杭州',
       destinationPlaceholder: '如：北京',
       startTimeLabel: '出发时间',

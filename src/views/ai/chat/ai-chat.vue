@@ -888,7 +888,7 @@ const _currentModelName = computed(() => {
             :rows="3"
             :placeholder="t('ai.chat.enterToSend')"
             resize="none"
-            @keydown="handleKeydown"
+            @keydown="handleKeydown as any"
             @compositionstart="handleCompositionStart"
             @compositionend="handleCompositionEnd"
           />

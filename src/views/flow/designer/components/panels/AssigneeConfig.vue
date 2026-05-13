@@ -5,7 +5,7 @@
   在 ASSIGNEE_STRATEGY_META 里加一行配置，不用改这个组件。这是相比 jnpf
   把 6 种策略硬编码成 6 个面板组件的一个明显改进。
 
-  multiUser / multiRole / multiDept 三个 type 直接接到 smart-upms 的真实
+  multiUser / multiRole / multiDept 三个 type 直接接到 smart-system 的真实
   组织数据 —— 通过 use-org-resolvers.ts 的 ensureUsers/ensureRoles/
   ensureDepts 拉到完整列表后用 ElSelect 多选呈现。这避免了「在配置面板里
   让设计师手动输 user id」这种反人类操作。

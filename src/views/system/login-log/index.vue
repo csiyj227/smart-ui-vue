@@ -69,7 +69,7 @@ const STATUS_MAP = computed(() => ({
   '2': { label: t('system.loginLog.statusLocked'), type: 'warning' as const },
   '3': { label: t('system.loginLog.statusLogout'), type: 'info' as const },
 }))
-const statusOf = (s?: string) => STATUS_MAP.value[String(s ?? '')] ?? { label: s ?? '-', type: 'info' as const }
+const statusOf = (s?: string) => (STATUS_MAP.value as Record<string, { label: string; type: string }>)[String(s ?? '')] ?? { label: s ?? '-', type: 'info' as const }
 
 const TYPE_MAP = computed(() => ({
   password: t('system.loginLog.typePassword'),
@@ -78,7 +78,7 @@ const TYPE_MAP = computed(() => ({
   refresh_token: t('system.loginLog.typeRefreshToken'),
   logout: t('system.loginLog.typeLogout'),
 }))
-const typeOf = (tVal?: string) => TYPE_MAP.value[String(tVal ?? '')] ?? (tVal || '-')
+const typeOf = (tVal?: string) => (TYPE_MAP.value as any)[String(tVal ?? '')] ?? (tVal || '-')
 
 onMounted(load)
 </script>
@@ -123,7 +123,7 @@ onMounted(load)
       </el-table-column>
       <el-table-column :label="t('system.loginLog.status')" width="90" align="center">
         <template #default="{ row }">
-          <el-tag size="small" :type="statusOf(row.status).type">{{ statusOf(row.status).label }}</el-tag>
+          <el-tag size="small" :type="(statusOf(row.status).type as any)">{{ statusOf(row.status).label }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="ip" :label="t('system.onlineUser.ip')" width="140" show-overflow-tooltip />
@@ -160,7 +160,7 @@ onMounted(load)
         <el-descriptions-item :label="t('system.loginLog.tenantId')">{{ detailRow.tenantId ?? '-' }}</el-descriptions-item>
         <el-descriptions-item :label="t('system.loginLog.loginType')">{{ typeOf(detailRow.loginType) }}</el-descriptions-item>
         <el-descriptions-item :label="t('system.loginLog.status')">
-          <el-tag size="small" :type="statusOf(detailRow.status).type">
+          <el-tag size="small" :type="(statusOf(detailRow.status).type as any)">
             {{ statusOf(detailRow.status).label }}
           </el-tag>
         </el-descriptions-item>

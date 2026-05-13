@@ -451,7 +451,7 @@ void props.readonly; // readonly 现在是占位，VueFlow nodes-draggable / edg
         pannable
         zoomable
         :node-color="minimapNodeColor"
-        node-stroke-width="2"
+        :node-stroke-width="Number(2)"
         mask-color="rgba(245, 247, 250, 0.6)"
       />
     </VueFlow>

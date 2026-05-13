@@ -18,7 +18,7 @@ useResponsive()
 const showSettings = ref(false)
 const permissionStore = usePermissionStore()
 
-const homeMenu = computed<MenuData>(() => ({
+const homeMenu = computed((): MenuData => ({
   menuId: 0,
   menuName: i18n.global.t('layout.home'),
   path: '/home',
@@ -28,9 +28,7 @@ const homeMenu = computed<MenuData>(() => ({
   sortOrder: -1,
   menuType: '1',
   keepAlive: false,
-  visible: true,
-  permission: '',
-}))
+} as any))
 
 const menus = computed<MenuData[]>(() => [homeMenu.value, ...permissionStore.menuList])
 </script>

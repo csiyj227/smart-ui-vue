@@ -208,7 +208,7 @@ function beforePickFile(file: File) {
  * el-upload 的 :http-request 钩子。我们截断默认上传，改成「读成 dataURL 喂给 cropper」。
  * 真正的上传在用户点「保存头像」按钮时才发生。
  */
-function handlePickFile(opts: UploadRequestOptions) {
+function handlePickFile(opts: UploadRequestOptions): any {
   const file = opts.file as File
   const reader = new FileReader()
   reader.onload = () => {
